@@ -1,0 +1,25 @@
+# header
+AUGPROMPT_COMMON
+
+original
+, side view
+, back view
+, front view
+, top view
+, bottom view
+, realistic photo
+, seen from side
+, seen from back
+, seen from various views
+, seen from close view
+, seen from far away
+, scenic view
+, full body photo
+, hand photo
+, face photo
+, photo taken close to hand
+, photo taken close to face
+, selfie
+, close-up photo
+, hand only
+, face only

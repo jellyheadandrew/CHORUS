@@ -1,0 +1,5 @@
+A person jumps on the bed
+A person sleeps on the bed
+A person sits on the bed
+A person makes the bed
+A person lies on the bed

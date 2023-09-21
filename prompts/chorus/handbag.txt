@@ -1,0 +1,4 @@
+A person lifts the handbag
+A person carries the handbag
+A person opens the handbag
+A person places the handbag on the table

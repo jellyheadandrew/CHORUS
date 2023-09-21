@@ -1,0 +1,7 @@
+A person opens an umbrella
+A person carries an umbrella
+A person shakes an umbrella
+A person closes an umbrella
+A person adjusts an umbrella
+A person places an umbrella on a table
+A person picks up an umbrella from the ground

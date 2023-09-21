@@ -1,0 +1,20 @@
+A person opens a backpack
+A person closes a backpack
+A person carries a backpack
+A person puts a backpack on
+A person takes off a backpack
+A person searches through a backpack
+A person fills a backpack
+A person empties a backpack
+A person repacks a backpack
+A person adjusts a backpack
+A person fastens a backpack
+A person unzips a backpack
+A person finds something in a backpack
+A person checks the contents of a backpack
+A person slings a backpack over their shoulder
+A person hands a backpack to another person
+A person drops a backpack on the ground
+A person secures a backpack with a strap
+A person borrows a backpack from someone
+A person returns a backpack to its owner
