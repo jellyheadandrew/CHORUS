@@ -24,7 +24,7 @@ Due to licensing constraints, you must manually download the SMPL model from the
 
 1. Visit the <a href="https://smpl.is.tue.mpg.de">SMPL website</a>.
 2. Register, verify your account, and log in.
-3. Download `SMPL_python_v.1.1.0.zip` and save it to the following path: `imports/frankmocap/extra_data/SMPL_python_v.1.1.0.zip`.
+3. Download `SMPL_python_v.1.1.0.zip` and save it to the following path: `imports/frankmocap/SMPL_python_v.1.1.0.zip`.
 4. Run the following command to prepare the SMPL model:
 
     ```shell
