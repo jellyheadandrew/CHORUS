@@ -33,6 +33,13 @@ def prepare_aggr_core(verbose, **aggr_settings):
     if 'LBS_IDENTITY_CENTER_SMPL' in aggr_settings.keys(): core_settings['SMPL']['LBS_PRECOMPUTE_SETTINGS']['LBS_IDENTITY_CENTER'] = aggr_settings['LBS_IDENTITY_CENTER_SMPL']
     if 'LBS_IDENTITY_DIST_THRESHOLD_SMPL' in aggr_settings.keys(): core_settings['SMPL']['LBS_PRECOMPUTE_SETTINGS']['LBS_IDENTITY_DIST_THRESHOLD'] = aggr_settings['LBS_IDENTITY_DIST_THRESHOLD_SMPL']
 
+    ## for demonstration (in colab notebook)
+    if 'demo' in aggr_settings:
+        if aggr_settings['demo']:
+            core_settings['GLOBAL']['DEVICE'] = 'cuda'
+            core_settings['GLOBAL']['INTERACTION_REGIONS_PRECOMPUTE_SETTINGS']['PART_INTERACTION_REGION_PRECOMPUTE_DEVICE'] = 'cuda'
+            core_settings['SMPL']['LBS_PRECOMPUTE_SETTINGS']['PRECOMPUTE_DEVICE'] = 'cuda'
+
     ## prepare aggregation core
     return _aggr_core(verbose=verbose, core_settings=core_settings)
 

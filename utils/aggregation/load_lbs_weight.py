@@ -188,18 +188,20 @@ def precompute_lbs_weights(
         neighbor_weights = inverse_neighbor_distances / inverse_neighbor_distances.sum(dim=0, keepdim=True).clamp(min=1e-10) # Shape: N_neighbors x N_all_voxels
         assert not torch.any(torch.isnan(neighbor_weights)), "NaN problems"
         neighbor_weights += exactly_smpl_vertice.float() * to_replace # N_neighbors x N_all_voxels
-        lbs_weights_per_voxel = (lbs_weights_of_neighbors * neighbor_weights[...,None]).sum(dim=0).expand([batch_size,-1,-1]) # batch x N_all_voxels x J
+        lbs_weights_per_voxel = (lbs_weights_of_neighbors.to(lbs_precompute_settings['precompute_device']) * neighbor_weights[...,None].to(lbs_precompute_settings['precompute_device'])).sum(dim=0).expand([batch_size,-1,-1]) # batch x N_all_voxels x J
         # identity skinning weights
         identity_skin_weights = torch.zeros([batch_size, N_all_voxels, N_joint], device=lbs_precompute_settings['precompute_device'])
         identity_skin_weights[...,0] = 1 # batch x N_all_voxels x J
         # soft mixing weights for identity, NOT via origin. --> set as 0.75
         force_identity = (top1_neighbor_distances > lbs_precompute_settings["lbs_identity_dist_threshold"]).float() # N_all_voxels, 0. or 1.
+        force_identity = force_identity.to(lbs_precompute_settings['precompute_device'])
         # identity distance ratio        --> lbs_dist_origin_thresh: set as 0.5
         identity_distances = lbs_precompute_settings["lbs_dist_origin_thresh"] * torch.ones_like(top1_neighbor_distances) # N_all_voxels
         dist_from_body_ratios = top1_neighbor_distances / identity_distances
         # weights for identity
         weights_for_identity = zero2one_to_zero2inf(dist_from_body_ratios, method='arctanh', y_scale=lbs_precompute_settings["lbs_y_scale"]) # N_all_voxels
         weights_for_identity = 1 - torch.exp(-weights_for_identity)
+        weights_for_identity = weights_for_identity.to(lbs_precompute_settings['precompute_device'])
         weights_for_identity = weights_for_identity * (1 - force_identity) + torch.ones_like(weights_for_identity) * force_identity
         # soft mixing
         weights_for_identity = weights_for_identity[None,:,None] # 1 x N_all_voxels x 1
