@@ -34,10 +34,10 @@ def prepare_aggr_core(verbose, **aggr_settings):
     if 'LBS_IDENTITY_DIST_THRESHOLD_SMPL' in aggr_settings.keys(): core_settings['SMPL']['LBS_PRECOMPUTE_SETTINGS']['LBS_IDENTITY_DIST_THRESHOLD'] = aggr_settings['LBS_IDENTITY_DIST_THRESHOLD_SMPL']
 
     ## prepare aggregation core
-    return _aggr_core(verbose=verbose, core_settings=core_settings)
+    return _aggr_core(verbose=verbose, core_settings=core_settings, demo=aggr_settings['demo'] if 'demo' in aggr_settings else False)
 
 
-def _aggr_core(verbose, core_settings):
+def _aggr_core(verbose, core_settings, demo=False):
     # aggr_core
     aggr_core = EasyDict()
     smpl_info = load_smpl_info(
@@ -57,7 +57,7 @@ def _aggr_core(verbose, core_settings):
         device = core_settings['GLOBAL']['DEVICE'],
         interaction_region_precompute_settings = { # for precomputing interaction region
             'part_interaction_region_precompute_device': core_settings['GLOBAL']['INTERACTION_REGIONS_PRECOMPUTE_SETTINGS']['PART_INTERACTION_REGION_PRECOMPUTE_DEVICE'],
-            'part_interaction_region_precompute_chunk_size': 50000, 
+            'part_interaction_region_precompute_chunk_size': 5000 if demo else core_settings['GLOBAL']['INTERACTION_REGIONS_PRECOMPUTE_SETTINGS']['PART_INTERACTION_REGION_PRECOMPUTE_CHUNK_SIZE'],
         },
         zerobeta = core_settings['GLOBAL']['ZEROBETA'], # which inputs to use
         learned_k = core_settings['GLOBAL']['LEARNED_K'],
@@ -90,7 +90,7 @@ def _aggr_core(verbose, core_settings):
         lbs_weights=smpl_info['lbs_weights'],
         lbs_precompute_settings = dict( # lbs-precompute settings
             precompute_device = core_settings['SMPL']['LBS_PRECOMPUTE_SETTINGS']['PRECOMPUTE_DEVICE'],
-            chunk_size = core_settings['SMPL']['LBS_PRECOMPUTE_SETTINGS']['CHUNK_SIZE'],
+            chunk_size = 5000 if demo else core_settings['SMPL']['LBS_PRECOMPUTE_SETTINGS']['CHUNK_SIZE'],
             lbs_num_neighbors = core_settings['SMPL']['LBS_PRECOMPUTE_SETTINGS']['LBS_NUM_NEIGHBORS'],
             lbs_merge_method = core_settings['SMPL']['LBS_PRECOMPUTE_SETTINGS']['LBS_MERGE_METHOD'],
             lbs_smoothing_method = core_settings['SMPL']['LBS_PRECOMPUTE_SETTINGS']['LBS_SMOOTHING_METHOD'], 
